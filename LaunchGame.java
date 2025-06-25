@@ -1,3 +1,5 @@
+
+import java.util.Random;
 import java.util.Scanner;
 
 class TicTacToe
@@ -103,10 +105,9 @@ class TicTacToe
 		
 }
 
-class HumanPlayer
+class HumanPlayer extends Player
 {
-	String name;
-	char mark;
+	
 	
 	HumanPlayer(String name, char mark)
 	{
@@ -131,6 +132,48 @@ class HumanPlayer
 		}
 	}
 	
+	
+}
+
+
+class AiPlayer extends Player
+{
+	
+	
+	AiPlayer(String name, char mark)
+	{
+		this.name=name;
+		this.mark=mark;
+	}
+	
+	
+	void makeMove()
+	{
+		int row;
+		int col;
+		Scanner sc = new Scanner(System.in);
+		do {
+			Random r = new Random();
+			
+			row = r.nextInt(3);
+			col=r.nextInt(3);
+		}while(!isValidMove(row,col));
+		{
+		
+		TicTacToe.placeMark(row, col, mark);
+		}
+	}
+	
+	
+}
+
+ abstract class Player
+{
+	String name;
+	char mark;
+	
+	abstract void makeMove();
+	
 	boolean isValidMove(int row, int col)
 	{
 		if(row>=0 && row<=2 && col>=0 && col<=2)
@@ -142,6 +185,9 @@ class HumanPlayer
 		}
 		return false;
 	}
+	
+	
+	
 }
 
 
@@ -153,17 +199,18 @@ class HumanPlayer
 
 
 
+ 
 
-public class LaunchGame {
+public class Launchgame {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		TicTacToe t = new TicTacToe();
 		
 		HumanPlayer p1 = new HumanPlayer("bob",'X');
-		HumanPlayer p2 = new HumanPlayer("priya",'O');
+		AiPlayer p2 = new AiPlayer("priya",'O');
 		
-		HumanPlayer cp;
+		Player cp;
 		cp=p1;
 		
 		while (true) {
@@ -193,3 +240,4 @@ public class LaunchGame {
 	}
 
 }
+
